@@ -1,0 +1,213 @@
+:root{
+  --animation-time: 0.6s;
+  --teal-400: #27B6BA;
+  --teal-600: #259295;
+  --icon-size: 5em;
+  --icon-line-width-ratio: 8;
+}
+
+#completion-icon-container{
+  /* height: 60px */
+}
+
+
+.completion-icon{
+  width: var(--icon-size);
+  height: var(--icon-size);
+  cursor: pointer;
+  position: relative;
+  border: 1px solid grey;
+}
+
+
+.completion-icon-circle {
+  width: 100%;
+  height: 100%;
+  background:transparent;
+  border: calc(var(--icon-size) / var(--icon-line-width-ratio)) solid rgba(0,0,0,0.3);
+  border-radius: 50%;
+  box-sizing: border-box; /* For borders to fit within the external dimension */
+
+  /* Animation */
+  transition: var(--animation-time) all linear;
+}
+
+/* Long part of the tick */
+.completion-icon-inside-tick:before{
+  content: '';
+  position: absolute;
+  opacity: 0;
+
+  /* Position vertically */
+  top: calc(var(--icon-size) * (4/6));
+  /* Adjust for the height of the element */
+  /* margin-top: - calc(var(--icon-size) / var(--icon-line-width-ratio)); */
+
+  /* Position Horizontally */
+  left: calc(var(--icon-size) * (1/2));
+  /* Adjust for the height of the element */
+  /* margin-left: -calc(var(--icon-size) / var(--icon-line-width-ratio)); */
+
+  /* Element size */
+  width: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  height: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  border-radius: 0.5em;
+
+  /* Rotate */
+  transform: rotate(-45deg);
+  /* Get the rotation point at the extremity of the tick */
+  transform-origin: 0 50%;
+  background-color: var(--teal-600);
+}
+
+/* Small part of the tick */
+.completion-icon-inside-tick:after{
+  content: '';
+  position: absolute;
+  opacity: 0;
+
+  /* Position vertically */
+  top: calc(var(--icon-size) * (4/6));
+  /* Adjust for the height of the element */
+  /* margin-top: -0.125em;  */
+
+  /* Position Horizontally */
+  left: calc(var(--icon-size) * (1/2));
+  /* Adjust for the height of the element */
+  margin-left: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  /* margin-left: -0.125em; */
+
+  /* Element size */
+  width: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  height: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  border-radius: 0.5em;
+
+  /* Rotate */
+  transform: rotate(225deg);
+  /* Get the rotation point at the end extremity of the tick */
+  transform-origin: 0 50%;
+  background-color:var(--teal-600);
+}
+
+.completion-icon.completed .completion-icon-circle{
+  /* Target color on completion */
+  border-color: var(--teal-400);
+
+  /* Run the animation when completing */
+  animation: circle-pulse var(--animation-time) ease-in-out;
+}
+
+/* Runs the animation of the big tick */
+.completion-icon.completed .completion-icon-inside-tick:before{
+  opacity: 1;
+  /* width: calc(var(--icon-size) / 1.5);
+  transition: var(--animation-time) width ease-in; */
+
+  animation: tick-long-part var(--animation-time) ease-in-out;
+  /* Keeps the last played keyframe values */
+  animation-fill-mode: forwards;
+}
+
+/* Runs the animation of the small tick */
+.completion-icon.completed .completion-icon-inside-tick:after{
+  /* opacity: 1; */
+  /* width: calc(var(--icon-size) / 3);
+  transition: var(--animation-time) width ease-in; */
+
+  animation: tick-short-part var(--animation-time) ease-in-out;
+  /* Keeps the last played keyframe values */
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes circle-pulse {
+  from {
+    transform: scale(1);
+    transform-origin: center center;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    /* transform: scale(0.1); */
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+@keyframes tick-long-part{
+  from{ 
+    width: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  }
+  66%, 100%{
+    width: calc(var(--icon-size) / 1.5);
+  }
+}
+
+@keyframes tick-short-part{
+  0%, 66%{
+    opacity: 0;
+    width: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  }
+  67%{
+    opacity: 1;
+    width: calc(var(--icon-size) / var(--icon-line-width-ratio));
+  }
+  100%{
+    opacity: 1;
+    width: calc(var(--icon-size) / 3);
+  }
+}
+
+/* 
+TODOs:
+- Review calculation of contact point of the tick bars
+- How to make the 'uncomplete' instant animation? force the transition with a :not(completed)
+- Animate the circle as a line being drawn? ... need svg mandatory?
+- Turn the tick into a svg path to be 1 line?
+ */
+
+
+
+svg{
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.full-icon{
+  display: block;
+  margin: 10px;
+  width: 125px;
+  height: auto;
+  cursor: pointer;
+}
+
+.full-icon.size-small{
+  width: 50px;
+}
+
+.full-icon.size-large{
+  width: 200px;
+}
+
+.full-icon circle.colored{
+  stroke: var( --teal-400 );
+  stroke-dasharray: 350; /* circumference for circle of diameter 60 is 188 */
+  stroke-dashoffset: -350;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+.full-icon path{
+  transform: rotate(-45deg);
+  transform-origin: 67.5px 67.5px;
+  /* transform-origin: 50% 50%; */
+
+  stroke-dasharray: 90; /* circumference for circle of diameter 60 is 188 */
+  stroke-dashoffset: 90;
+  stroke: var( --teal-600 );
+}
+.full-icon.completed path{
+  stroke-dashoffset: 0;
+  transition: var(--animation-time) all ease;
+}
+.full-icon.completed circle{
+  stroke-dashoffset: 0;
+  transition: var(--animation-time) all ease;
+}

@@ -1,0 +1,239 @@
+<html>
+  <link rel = "stylesheet" type = "text/css" href = "animations.css" />
+
+  <div id='completion-icon-container'>
+    <div class='completion-icon'>
+      <div class='completion-icon-circle'></div>
+      <div class='completion-icon-inside-tick'></div>
+    </div>
+  </div>
+
+  <!-- Tick icon in SVG -->
+  <svg 
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 125 125"
+    class="full-icon">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths -->
+    <!--
+      r is radius; 
+      stroke is applied around the circle line, ie the stroke width is half inside and half outside
+      hence, the circle center position (cx and cy) is radius + stroke-width/2
+     -->
+    <circle
+      class="background"
+      stroke="rgba(0,0,0,0.1)"
+      fill="transparent"
+      stroke-width="25"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <circle
+      class="colored"
+      fill="transparent"
+      stroke-width="25"
+      stroke="blue"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <path 
+      d="M 60 47.5 L 60 67.5 L 130 67.5"
+      fill="transparent"
+      stroke=""
+      stroke-width="25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+
+  <!-- Tick icon in SVG -->
+  <svg 
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 125 125"
+    class="full-icon">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths -->
+    <!--
+      r is radius; 
+      stroke is applied around the circle line, ie the stroke width is half inside and half outside
+      hence, the circle center position (cx and cy) is radius + stroke-width/2
+     -->
+    <circle
+      class="background"
+      stroke="rgba(0,0,0,0.1)"
+      fill="transparent"
+      stroke-width="25"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <circle
+      class="colored"
+      fill="transparent"
+      stroke-width="25"
+      stroke="blue"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <path 
+      d="M 60 47.5 L 60 67.5 L 130 67.5"
+      fill="transparent"
+      stroke=""
+      stroke-width="25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+  <!-- Tick icon in SVG -->
+  <svg 
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 125 125"
+    class="full-icon size-small">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths -->
+    <!--
+      r is radius; 
+      stroke is applied around the circle line, ie the stroke width is half inside and half outside
+      hence, the circle center position (cx and cy) is radius + stroke-width/2
+      -->
+    <circle
+      class="background"
+      stroke="rgba(0,0,0,0.1)"
+      fill="transparent"
+      stroke-width="25"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <circle
+      class="colored"
+      fill="transparent"
+      stroke-width="25"
+      stroke="blue"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <path 
+      d="M 60 47.5 L 60 67.5 L 130 67.5"
+      fill="transparent"
+      stroke=""
+      stroke-width="25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+
+  <!-- Tick icon in SVG -->
+  <svg 
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 125 125"
+    class="full-icon size-large">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths -->
+    <!--
+      r is radius; 
+      stroke is applied around the circle line, ie the stroke width is half inside and half outside
+      hence, the circle center position (cx and cy) is radius + stroke-width/2
+      -->
+    <circle
+      class="background"
+      stroke="rgba(0,0,0,0.1)"
+      fill="transparent"
+      stroke-width="25"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <circle
+      class="colored"
+      fill="transparent"
+      stroke-width="25"
+      stroke="blue"
+      stroke-linecap="round"
+      r="50"
+      cx="62.5"
+      cy="62.5"
+    />
+    <path 
+      d="M 60 47.5 L 60 67.5 L 130 67.5"
+      fill="transparent"
+      stroke=""
+      stroke-width="25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+
+
+
+
+  <script type="text/javascript">
+    // CSS version
+    document.querySelector( '.completion-icon' ).addEventListener( 'click', function( event ){
+      let targetElement = event.target || event.srcElement
+      let element = this || event.currentTarget 
+
+      // Need to improve: it should apply the style to the parent icon, not to the circle or specific clicked element
+      document.querySelector( '.completion-icon' ).classList.toggle( 'completed' )
+    })
+
+
+    // SVG version
+    // document.querySelector( '.full-icon' ).addEventListener( 'click', function( event ){
+    //   let element = this || event.currentTarget
+
+    //   element.classList.toggle( 'completed' )
+    // })
+
+
+
+    // Use a document listener to allow new elements to be added without having to register new listeners
+    // Works on Chrome and Firefox
+    // Safari animations is not as expected
+    document.addEventListener( 'click', function( event){
+      console.log( 'targeted element:', event.target )
+      console.log( event )
+
+      let iconElement = event.target.closest( '.full-icon' ) 
+
+      if( iconElement ){
+        iconElement.classList.toggle( 'completed' )
+      }else{
+        console.log( 'click was not on an icon' )
+      }
+      
+      // usingPathTraversal( event )
+    } )
+
+
+
+    function usingPathTraversal( event ){
+      // Using path traversal
+      let isOnIcon = false
+      // Find the icon element to apply the class
+      if( !event.path ){ 
+        // Safari and Firefox don't support the .path property
+        console.log( 'not supported' )
+        return
+      }
+      event.path.forEach( function( onePathElement ){
+        if( onePathElement.classList && onePathElement.classList.contains( 'full-icon' ) ){
+          isOnIcon = true
+          onePathElement.classList.toggle( 'completed' )
+        }
+      } )
+      console.log( 'isOnIcon?', isOnIcon )
+    }
+  </script>
+</html>
